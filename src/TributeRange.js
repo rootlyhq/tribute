@@ -338,21 +338,21 @@ class TributeRange {
                         firstSnippetChar === '\xA0'
                     )
                 if (hasTrailingSpace) {
-                    currentTriggerSnippet = currentTriggerSnippet.trim()
+                  currentTriggerSnippet = currentTriggerSnippet.trim()
                 }
 
                 let regex = allowSpaces ? /[^\S ]/g : /[\xA0\s]/g;
 
                 this.tribute.hasTrailingSpace = regex.test(currentTriggerSnippet);
 
-                if (!leadingSpace && (menuAlreadyActive || !(regex.test(currentTriggerSnippet)))) {
+                if (menuAlreadyActive || !(regex.test(currentTriggerSnippet))) {
                     return {
                         mentionPosition: mostRecentTriggerCharPos,
-                        mentionText: currentTriggerSnippet,
+                        mentionText: currentTriggerSnippet.trim(),
                         mentionSelectedElement: selected,
                         mentionSelectedPath: path,
                         mentionSelectedOffset: offset,
-                        mentionTriggerChar: triggerChar
+                        mentionTriggerChar: triggerChar + (leadingSpace ? " " : "")
                     }
                 }
             }
